@@ -8,40 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generate-btn');
     const copyBtn = document.getElementById('copy-btn');
     const copyFeedback = document.getElementById('copy-feedback');
-    const imageUpload = document.getElementById('image-upload');
-    const uploadWrapper = document.getElementById('upload-wrapper');
-    const uploadContent = document.getElementById('upload-content');
-    const imagePreviewContainer = document.getElementById('image-preview-container');
-    const imagePreview = document.getElementById('image-preview');
-    const shareBtn = document.getElementById('share-btn');
-    
-    let selectedImageFile = null;
-
-    // Handle Image Upload
-    if(imageUpload) {
-        imageUpload.addEventListener('change', (e) => {
-            if (e.target.files && e.target.files[0]) {
-                selectedImageFile = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = function(evt) {
-                    if (uploadContent) {
-                        uploadContent.innerHTML = `<span class="icon">✅</span><span class="text" style="color:var(--success)">Imagem Selecionada</span>`;
-                    }
-                    if (uploadWrapper) {
-                        uploadWrapper.style.borderColor = 'var(--success)';
-                    }
-                    if (imagePreview) imagePreview.src = evt.target.result;
-                    if (imagePreviewContainer) imagePreviewContainer.style.display = 'flex';
-                }
-                reader.readAsDataURL(selectedImageFile);
-            }
-        });
-    }
 
     // Generate output
     const generatePost = () => {
-        const title = titleInput.value.trim();
+        const title = titleInput.value.trim().toUpperCase();
         const price = priceInput.value.trim();
         const coupon = couponInput.value.trim();
         const affiliateLink = affiliateLinkInput.value.trim();
@@ -84,11 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Enable copy button and trigger soft animation
         copyBtn.disabled = false;
 
-        // Show share button if Web Share API is available
-        if (navigator.share && shareBtn) {
-            shareBtn.style.display = 'flex';
-        }
-
         resultTextArea.style.borderColor = 'var(--primary)';
         resultTextArea.style.boxShadow = '0 0 15px rgba(245, 61, 45, 0.2)';
         
@@ -123,41 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Share to App function
-    const shareToApp = async () => {
-        const textToShare = resultTextArea.value;
-        if (!textToShare) return;
-
-        const shareData = {
-            title: titleInput.value.trim(),
-            text: textToShare,
-        };
-
-        if (selectedImageFile) {
-            // Re-create the file to ensure the type is correctly set for Web Share API
-            const newFile = new File([selectedImageFile], selectedImageFile.name, { type: selectedImageFile.type });
-            if (navigator.canShare && navigator.canShare({ files: [newFile] })) {
-                shareData.files = [newFile];
-            }
-        }
-
-        try {
-            await navigator.share(shareData);
-            // Show feedback
-            copyFeedback.innerText = "Pronto para enviar!";
-            copyFeedback.classList.add('show');
-            setTimeout(() => {
-                copyFeedback.classList.remove('show');
-                copyFeedback.innerText = "Copiado para a área de transferência!";
-            }, 2000);
-        } catch (err) {
-            console.log("Compartilhamento cancelado ou não suportado: ", err);
-        }
-    };
-
     // Events
     generateBtn.addEventListener('click', generatePost);
-    if(shareBtn) shareBtn.addEventListener('click', shareToApp);
     copyBtn.addEventListener('click', copyToClipboard);
 
     // Enter key generates if focused on inputs
