@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador Manual de Publicações Shopee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo-icon">🔥</div>
+            <h1>Gerador de Publicações</h1>
+            <p>Crie posts otimizados para grupos com seu link de afiliado da Shopee</p>
+        </header>
+
+        <main class="content-wrapper">
+            <section class="form-section glass-panel">
+                <h2>Detalhes do Produto</h2>
+                
+                <div class="input-group">
+                    <label>Capa do Produto</label>
+                    <div class="file-upload-wrapper" id="upload-wrapper">
+                        <input type="file" id="image-upload" accept="image/*">
+                        <div class="file-upload-content" id="upload-content">
+                            <span class="icon">📸</span>
+                            <span class="text">Toque para escolher uma foto</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="input-group">
+                    <label for="title">Título do Produto</label>
+                    <textarea id="title" rows="2" placeholder="Ex: Suporte de Pés Longos BRDRC para DJI Mini 4K..."></textarea>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="price">Preço Promocional (R$)</label>
+                        <input type="text" id="price" placeholder="Ex: 13,68">
+                    </div>
+                    <div class="input-group">
+                        <label for="coupon">Link do Cupom <span class="badge">Opcional</span></label>
+                        <input type="text" id="coupon" placeholder="https://shopee.com.br/m/cupom...">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="affiliate-link">Seu Link de Afiliado</label>
+                    <input type="url" id="affiliate-link" placeholder="Ex: https://s.shopee.com.br/4VXpZhcKwn">
+                </div>
+
+
+                <button id="generate-btn" class="primary-btn">
+                    <span>Gerar Publicação</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                </button>
+            </section>
+
+            <section class="preview-section glass-panel">
+                <div class="preview-header">
+                    <h2>Resultado</h2>
+                    <div class="action-buttons" style="display: flex; gap: 0.5rem;">
+                        <button id="copy-btn" class="icon-btn" title="Copiar texto" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </button>
+                        <button id="share-btn" class="icon-btn share-btn" title="Compartilhar no App" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="preview-content">
+                    <div id="image-preview-container" class="image-preview-container" style="display: none;">
+                        <img id="image-preview" src="" alt="Sua capa">
+                    </div>
+                    <textarea id="result" readonly placeholder="Sua publicação gerada aparecerá aqui..."></textarea>
+                    <div class="copy-feedback" id="copy-feedback">Texto copiado!</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
